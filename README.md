@@ -1,2 +1,2 @@
-# docs-txn-cxx-
+# docs-txn-cxx
 C++ Transactions API built upon libcouchbase.
