@@ -1,0 +1,7 @@
+name: cxx-txns
+version: '1.0'
+title: C++ Transactions
+start_page: .adoc
+nav:
+- modules/ROOT/nav.adoc
+server_version: '6.6'
