@@ -1,4 +1,4 @@
-= Distributed Transactions from the C SDK
+= Distributed Transactions from the C++ SDK
 :navtitle: ACID Transactions
 :page-topic-type: howto
 :page-aliases: acid-transactions
