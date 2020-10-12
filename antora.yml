@@ -1,7 +1,7 @@
 name: cxx-txns
 version: '1.0'
 title: C++ Transactions
-start_page: .adoc
+start_page: distributed-acid-transactions-from-the-sdk.adoc
 nav:
 - modules/ROOT/nav.adoc
 server_version: '6.6'
