@@ -45,6 +45,8 @@ First beta release of 1.0.0
 | Enterprise Linux 8    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar]
 | Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r57-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r57-ubuntu2004-focal.tar]
 | Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r57-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r57-debian10-buster.tar]
+|===
+
 
 == Using Distributed Transactions
 
