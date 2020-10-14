@@ -49,6 +49,16 @@ $ sudo dpkg -i couchbase-transactions*.deb
 
 First beta release of 1.0.0
 
+
+=== Known Issues
+
+* Owing to https://issues.couchbase.com/browse/MB-41944[MB-41944], this release _should not be used together with a deployment using Sync Gateway_.  
+Owing to this issue there is also a known theoretical data loss problem.  
+This release (as with all beta releases) should not be used in production.  
+The issue will be fixed in Couchbase Server release 6.6.1.
+
+
+
 === Downloads
 
 [cols="12,^8,23"]
