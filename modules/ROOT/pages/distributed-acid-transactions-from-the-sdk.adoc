@@ -264,7 +264,9 @@ A `TransactionCleanupAttempt` event is raised when an expired transaction was fo
 It contains whether that attempt was successful, along with any logs relevant to the attempt.
 
 In addition, if cleanup fails to cleanup a transaction that is more than two hours past expiry, it will raise the `TransactionCleanupAttempt` event at WARN level (rather than the default DEBUG).
-With most default configurations of the event-bus (see <<Logging>> below), this will cause that event to be logged somewhere visible to the application.
+With most default configurations of the event-bus, 
+//(see <<Logging>> below)
+this will cause that event to be logged somewhere visible to the application.
 If there is not a good reason for the cleanup to be failed (such as a downed node that has not yet been failed-over), then the user is encouraged to report the issue.
 
 
