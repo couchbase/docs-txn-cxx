@@ -1,4 +1,4 @@
 .C++ Distributed ACID Transactions
 * xref:distributed-acid-transactions-from-the-sdk.adoc[Transactions Howto]
 * xref:distributed-transactions-cxx-release-notes.adoc[Transactions Release Notes]
-* https://docs.couchbase.com/sdk-api/couchbase-transactions-cxx/html/index.html[API Reference]
+* https://docs.couchbase.com/sdk-api/couchbase-transactions-cxx/index.html[API Reference]
