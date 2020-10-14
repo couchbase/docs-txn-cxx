@@ -42,8 +42,8 @@ $ sudo yum install boost-devel
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar
-$ tar xf couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
+$ tar xf couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
 $ sudo yum install couchbase-transactions*.rpm
 ----
 

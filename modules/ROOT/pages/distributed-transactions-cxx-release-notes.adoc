@@ -23,9 +23,9 @@ This page features the release notes for that library -- for release notes, down
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
 
-$ tar xf couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar
+$ tar xf couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
 
 $ sudo yum install couchbase-transactions*.rpm
 ----
@@ -34,9 +34,9 @@ $ sudo yum install couchbase-transactions*.rpm
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r62-debian10-buster.tar
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar
 
-$ tar xf couchbase-transactions-1.0.0.beta.1~r62-debian10-buster.tar
+$ tar xf couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar
 
 $ sudo apt-get install -y libevent-core-2.1
 
@@ -54,10 +54,10 @@ First beta release of 1.0.0
 [cols="12,^8,23"]
 |===
 | Platform              | Architecture | File
-| Enterprise Linux 7    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el7.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.62.el7.x86_64.tar]
-| Enterprise Linux 8    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar]
-| Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er62-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r62-ubuntu2004-focal.tar]
-| Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er62-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r62-debian10-buster.tar]
+| Enterprise Linux 7    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el7.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.63.el7.x86_64.tar]
+| Enterprise Linux 8    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar]
+| Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er63-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r63-ubuntu2004-focal.tar]
+| Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er63-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar]
 |===
 
 
