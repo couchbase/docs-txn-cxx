@@ -17,7 +17,7 @@ Below we show you how to create Transactions, step-by-step.
 You may also want to start with our https://github.com/couchbaselabs/couchbase-transactions-java-examples[transactions examples repository],
 which features useful downloadable examples of using Distributed Transactions.
 
-API docs are available https://docs.couchbase.com/sdk-api/couchbase-transactions-cxx-1.0.0/index.html[online].
+API docs are available https://docs.couchbase.com/sdk-api/couchbase-transactions-cxx-1.0.0-beta.1/index.html[online].
 
 
 == Requirements
@@ -187,6 +187,23 @@ include::example$transactions-example.cxx[tag=full,indent=0]
 ----
 
 
+
+== Concurrency with Non-Transactional Writes
+
+This release of transactions for Couchbase requires a degree of co-operation from the application.
+Specifically, the application should ensure that non-transactional writes (such as key-value writes or N1QL UPDATES) are never done concurrently with transactional writes, on the same document.
+
+This requirement is to ensure that the strong Key-Value performance of Couchbase was not compromised.
+A key philosophy of our transactions is that you 'pay only for what you use'.
+
+If two such writes *do* conflict then the transactional write will 'win', overwriting the non-transactional write.
+
+Note this only applies to _writes_.
+Any non-transactional _reads_ concurrent with transactions are fine, and are at a Read Committed level.
+
+// To help detect that this co-operative requirement is fulfilled, the application can subscribe to the client's event logger and check for any `IllegalDocumentState` events, like so:
+ 
+////
 // concurrency
 include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=concurrency]
 
@@ -194,7 +211,7 @@ include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=concurrency]
 ----
 include::example$transactions-example.cxx[tag=concurrency,indent=0]
 ----
-
+////
 These events will be raised in the event of a non-transactional write being detected and overridden.
 The event contains the key of the document involved, to aid the application with debugging.
 
