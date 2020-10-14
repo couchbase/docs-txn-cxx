@@ -10,7 +10,7 @@ A practical guide to using Couchbase’s distributed ACID transactions, via the 
 
 include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=intro]
 
-The {cpp} Transactions API is built upon the Couchbase C SDK, _libcouchbase_ (LCB), which is automatically installed by the transactions library. 
+The {cpp} Transactions API is built upon the Couchbase C SDK, _libcouchbase_ (LCB), which is automatically installed by the transactions library.
 Applications built using C SDK and C Transactions can run in parallel without interfering with each other.
 
 Below we show you how to create Transactions, step-by-step.
@@ -42,8 +42,8 @@ $ sudo yum install boost-devel
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar
-$ tar xf couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar
+$ tar xf couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar
 $ sudo yum install couchbase-transactions*.rpm
 ----
 
@@ -264,7 +264,7 @@ A `TransactionCleanupAttempt` event is raised when an expired transaction was fo
 It contains whether that attempt was successful, along with any logs relevant to the attempt.
 
 In addition, if cleanup fails to cleanup a transaction that is more than two hours past expiry, it will raise the `TransactionCleanupAttempt` event at WARN level (rather than the default DEBUG).
-With most default configurations of the event-bus, 
+With most default configurations of the event-bus,
 //(see <<Logging>> below)
 this will cause that event to be logged somewhere visible to the application.
 If there is not a good reason for the cleanup to be failed (such as a downed node that has not yet been failed-over), then the user is encouraged to report the issue.
