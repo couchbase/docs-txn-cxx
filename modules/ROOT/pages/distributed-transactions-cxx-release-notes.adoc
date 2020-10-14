@@ -3,6 +3,19 @@
 :page-topic-type: project-doc
 :page-aliases: transactions-release-notes
 
+[abstract]
+The Couchbase {cpp} Distributed ACID Transactions API is built upon lobcouchbase, which is included automatically.
+This page contains installation instructions and release notes.
+
+
+Couchbase {cpp} Distributed ACID Transactions is currently available for:
+
+* CentOS 7 & 8 (some extra steps are required with CintOS 7);
+* Debian 10;
+* Ubuntu 20.04.
+
+Other OS versions are not tested.
+
 Couchbase C++ Distributed ACID Transactions is distributed as a separate library for the C SDK.
 This page features the release notes for that library -- for release notes, download links, and installation methods for the latest 3.x C SDK releases, see xref:sdk-release-notes.adoc[the current Release Notes page].
 
@@ -43,8 +56,8 @@ First beta release of 1.0.0
 | Platform              | Architecture | File
 | Enterprise Linux 7    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el7.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.62.el7.x86_64.tar]
 | Enterprise Linux 8    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.62.el8.x86_64.tar]
-| Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r62-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r62-ubuntu2004-focal.tar]
-| Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r62-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r62-debian10-buster.tar]
+| Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er62-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r62-ubuntu2004-focal.tar]
+| Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er62-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r62-debian10-buster.tar]
 |===
 
 
