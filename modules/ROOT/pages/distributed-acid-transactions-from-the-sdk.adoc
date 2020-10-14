@@ -27,14 +27,42 @@ include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=requirements]
 
 == Getting Started
 
-Couchbase transactions require no additional components or services to be configured. 
+Couchbase transactions require no additional components or services to be configured.
 Simply add the transactions library into your project.
 The latest version, as of October 2020, is 1.0.0-beta.
 
+The following steps show how to build and run our example project on CentOS 8:
+
+[source,console]
+----
+$ sudo yum groupinstall "Development Tools"
+$ sudo yum install boost-devel
+----
+
+[source,console]
+----
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar
+$ tar xf couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar
+$ sudo yum install couchbase-transactions*.rpm
+----
+
+[source,console]
+----
+$ git clone git://github.com/couchbaselabs/couchbase-transactions-cxx-examples.git
+$ cd couchbase-transactions-cxx-examples/game/
+$ mkdir build && cd build
+$ cmake ../
+$ make
+----
+
+[source,console]
+----
+$ ./game_server
+----
 
 == Initializing Transactions
 
-The starting point is the `Transactions` object.  
+The starting point is the `Transactions` object.
 It is very important that the application ensures that only one of these is created, as it performs automated background processes that should not be duplicated.
 
 [source,c++]

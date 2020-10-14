@@ -6,10 +6,45 @@
 Couchbase C++ Distributed ACID Transactions is distributed as a separate library for the C SDK.
 This page features the release notes for that library -- for release notes, download links, and installation methods for the latest 3.x C SDK releases, see xref:sdk-release-notes.adoc[the current Release Notes page].
 
+## CentOS
+
+[source,console]
+----
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar
+
+$ tar xf couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar
+
+$ sudo yum install couchbase-transactions*.rpm
+----
+
+## Debian/Ubuntu
+
+[source,console]
+----
+$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r57-debian10-buster.tar
+
+$ tar xf couchbase-transactions-1.0.0.beta.1~r57-debian10-buster.tar
+
+$ sudo apt-get install -y libevent-core-2.1
+
+$ sudo dpkg -i couchbase-transactions*.deb
+----
 
 // 1.0.0 release notes here:
+[#latest-release]
+== Version 1.0.0 Beta 1 (13 October 2020)
 
+First beta release of 1.0.0
 
+=== Downloads
+
+[cols="12,^8,23"]
+|===
+| Platform              | Architecture | File
+| Enterprise Linux 7    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.57.el7.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.57.el7.x86_64.tar]
+| Enterprise Linux 8    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.57.el8.x86_64.tar]
+| Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r57-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r57-ubuntu2004-focal.tar]
+| Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r57-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r57-debian10-buster.tar]
 
 == Using Distributed Transactions
 
