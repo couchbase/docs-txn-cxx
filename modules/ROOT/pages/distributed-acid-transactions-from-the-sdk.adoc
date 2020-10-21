@@ -363,6 +363,12 @@ The transaction expiry timer (which is configurable) will begin ticking once the
 ////
 
 
+== Logging
+
+To aid troubleshooting, each transaction maintains a list of log entries, which can be logged on failure.
+A failed transaction can involve dozens, even hundreds, of lines of logging, so the application may prefer to write failed transactions into a separate file.
+
+
 
 == Further Reading
 
