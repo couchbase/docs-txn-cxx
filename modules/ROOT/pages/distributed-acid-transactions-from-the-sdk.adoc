@@ -64,7 +64,7 @@ $ ./game_server
 
 == Initializing Transactions
 
-The starting point is the `Transactions` object.
+The starting point is the `transactions` object.
 It is very important that the application ensures that only one of these is created, as it performs automated background processes that should not be duplicated.
 
 [source,c++]
@@ -75,7 +75,7 @@ include::example$transactions-example.cxx[tag=init,indent=0]
 
 == Configuration
 
-Transactions can optionally be configured at the point of creating the `Transactions` object:
+Transactions can optionally be configured at the point of creating the `transactions` object:
 
 [source,c++]
 ----
@@ -145,8 +145,8 @@ There are two ways to get a document, `get` and `getOptional`:
 include::example$transactions-example.cxx[tag=get,indent=0]
 ----
 
-`get` will cause the transaction to fail with `TransactionFailed` (after rolling back any changes, of course).
-It is provided as a convenience method so the developer does not have to check the `Optional` if the document must exist for the transaction to succeed.
+`get` will cause the transaction to fail with `transaction_failed` (after rolling back any changes, of course).
+It is provided as a convenience method so the developer does not have to check the `optional` if the document must exist for the transaction to succeed.
 
 Gets will 'read your own writes', e.g. this will succeed:
 
@@ -159,22 +159,33 @@ include::example$transactions-example.cxx[tag=getReadOwnWrites,indent=0]
 
 Committing is automatic: if there is no explicit call to `ctx.commit()` at the end of the transaction logic callback, and no exception is thrown, it will be committed.
 
-
-////
-With the asynchronous API, if you leave off the explicit call to `commit` then you may need to call `.then()` on the result of the chain to convert it to the required `Mono<Void>` return type:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=commit,indent=0]
-----
-
-As described above, as soon as the transaction is committed, all its changes will be atomically visible to reads from other transactions.
+As soon as the transaction is committed, all its changes will be atomically visible to reads from other transactions.
 The changes will also be committed (or "unstaged") so they are visible to non-transactional actors, in an eventually consistent fashion.
-////
 
 Commit is final: after the transaction is committed, it cannot be rolled back, and no further operations are allowed on it.
 
 An asynchronous cleanup process ensures that once the transaction reaches the commit point, it will be fully committed - even if the application crashes.
+
+
+== Threads
+
+The `cluster`, `bucket`, `collection`, and  `transactions` objects all are safe to use across multiple threads.  When creating
+the `cluster`, you can specify the maximum number of `libcouchbase` instances the `cluster` and `bucket` can use.  Transactions
+currently only using KV operations from the `bucket`.  Specifying `max_bucket_instances` in the `cluster_options` when creating
+the `cluster` is sufficient.  This will be the maximum number of concurrent transaction operations which can be made:
+
+[source,c++]
+----
+include::example$transactions-example.cxx[tag=max_bucket_instances,indent=0]
+----
+
+The example below allows for up to 10 instances to be created, then has 10 threads `get` and `replace` the content in a document:
+
+[source,c++]
+----
+include::example$transactions-example.cxx[tag=threads,indent=0]
+----
+
 
 
 // == A Full Transaction Example
@@ -186,7 +197,6 @@ A complete version of this example is available on our https://github.com/couchb
 ----
 include::example$transactions-example.cxx[tag=full,indent=0]
 ----
-
 
 
 == Concurrency with Non-Transactional Writes
@@ -202,20 +212,6 @@ If two such writes *do* conflict then the transactional write will 'win', overwr
 Note this only applies to _writes_.
 Any non-transactional _reads_ concurrent with transactions are fine, and are at a Read Committed level.
 
-// To help detect that this co-operative requirement is fulfilled, the application can subscribe to the client's event logger and check for any `IllegalDocumentState` events, like so:
- 
-////
-// concurrency
-include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=concurrency]
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=concurrency,indent=0]
-----
-////
-These events will be raised in the event of a non-transactional write being detected and overridden.
-The event contains the key of the document involved, to aid the application with debugging.
-
 
 == Rollback
 
@@ -223,7 +219,7 @@ If an exception is thrown, either by the application from the lambda, or by the 
 The transaction logic may or may not be retried, depending on the exception.
 //- see link:#error-handling[Error handling and logging].
 
-If the transaction is not retried then it will throw a `TransactionFailed` exception, and its `getCause` method can be used for more details on the failure.
+If the transaction is not retried then it will throw a `transaction_failed` exception, and its `cause` method can be used for more details on the failure.
 The application can use this to signal why it triggered a rollback.
 
 The transaction can also be explicitly rolled back:
@@ -253,123 +249,16 @@ include::example$transactions-example.cxx[tag=config-expiration,indent=0]
 
 include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=txnfailed1]
 
-////
-=== Full Error Handling Example
-
-Pulling all of the above together, this is the suggested best practice for error handling:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=full-error-handling,indent=0]
-----
-////
-
-include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=cleanup]
-
-=== Monitoring Cleanup
-
-If the application wishes to monitor cleanup it may subscribe to these events:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=config-cleanup,indent=0]
-----
-
-`TransactionCleanupEndRunEvent` is raised whenever a current 'run' is finished, and contains statistics from the run.
-(A run is typically around every 60 seconds, with default configuration.)
-
-A `TransactionCleanupAttempt` event is raised when an expired transaction was found by this process, and a cleanup attempt was made.
-It contains whether that attempt was successful, along with any logs relevant to the attempt.
-
-In addition, if cleanup fails to cleanup a transaction that is more than two hours past expiry, it will raise the `TransactionCleanupAttempt` event at WARN level (rather than the default DEBUG).
-With most default configurations of the event-bus,
-//(see <<Logging>> below)
-this will cause that event to be logged somewhere visible to the application.
-If there is not a good reason for the cleanup to be failed (such as a downed node that has not yet been failed-over), then the user is encouraged to report the issue.
-
-
-
-////
-== Logging
-
-To aid troubleshooting, each transaction maintains a list of log entries, which can be logged on failure like this:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=logging,indent=0]
-----
-
-or for the asynchronous API:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=async_logging,indent=0]
-----
-
-A failed transaction can involve dozens, even hundreds, of lines of logging, so the application may prefer to write failed transactions into a separate file.
-
-For convenience there is also a config option that will automatically write this programmatic log to the standard Couchbase Java logging configuration inherited from the SDK if a transaction fails.
-This will log all lines of any failed transactions, to `WARN` level:
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=config_warn,indent=0]
-----
-
-
-Please see the xref:howtos:collecting-information-and-logging.adoc[C SDK logging documentation] for details.
-
-Most applications will have their own preferred logging solution in-place already.
-For those starting from scratch here is a complete example:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=full-logging,indent=0]
-----
-////
-
-
-////
-== Deferred Commits
-
-NOTE: The deferred commit feature is currently in alpha, and the API may change.
-
-Deferred commits allow a transaction to be paused just before the commit point.
-Optionally, everything required to finish the transaction can then be bundled up into a context that may be serialized into a String or byte array, and deserialized elsewhere (for example, in another process).
-The transaction can then be committed, or rolled back.
-
-The intention behind this feature is to allow multiple transactions, potentially spanning multiple databases, to be brought to just before the commit point, and then all committed together.
-
-Here's an example of deferring the initial commit and serializing the transaction:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=defer1,indent=0]
-----
-
-And then committing the transaction later:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=defer2,indent=0]
-----
-
-Alternatively the transaction can be rolled back:
-
-[source,c++]
-----
-include::example$transactions-example.cxx[tag=defer3,indent=0]
-----
-
-The transaction expiry timer (which is configurable) will begin ticking once the transaction starts, and is not paused while the transaction is in a deferred state.
-////
-
 
 == Logging
 
-To aid troubleshooting, each transaction maintains a list of log entries, which can be logged on failure.
-A failed transaction can involve dozens, even hundreds, of lines of logging, so the application may prefer to write failed transactions into a separate file.
+To aid troubleshooting, the transactions library logs information to `stdout`.  The default logging level is `INFO`, but can
+be changed to produce more or less detailed output.  For instance, to see very detailed logging:
 
-
+[source,c++]
+----
+include::example$transactions-example.cxx[tag=config_trace,indent=0]
+----
 
 == Further Reading
 

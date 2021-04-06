@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <list>
+#include <thread>
 
 #include <couchbase/client/cluster.hxx>
 #include <couchbase/transactions.hxx>
@@ -136,6 +138,11 @@ player_hits_monster(couchbase::transactions::transactions& transactions,
 int
 main(int argc, const char* argv[])
 {
+    // #tag::config_trace[]
+    // Set logging level to Trace
+    couchbase::transactions::set_transactions_logging_level(log_levels::TRACE);
+    // #end::config_trace[]
+
     // #tag::init[]
     // Initialize the Couchbase cluster
     couchbase::cluster cluster("couchbase://localhost", "transactor", "mypass");
@@ -303,5 +310,33 @@ main(int argc, const char* argv[])
             // else continue transaction
         });
         // #end::rollback[]
+    }
+
+    {
+        // #tag::max_bucket_instances[]
+        couchbase::cluster c("couchbase://localhost", "transactor", "mypass", cluster_options().max_bucket_instances(10));
+        auto coll = c.bucket("transact")->default_collection();
+        // #end::max_bucket_instances[]
+
+        // #tag::threads[]
+        std::list<std::thread> threads;
+        std::atomic<int> counter {0};
+        for (int i=0; i<10; i++) {
+          threads.emplace_back([&]() {
+            transactions.run([&](couchbase::transactions::attempt_context& ctx) {
+              std::string id = "doc_a";
+              auto doc = ctx.get(coll, id);
+              auto doc_content = doc.value();
+              doc_content["counter"] = ++counter;
+              ctx.replace(coll, doc, doc_content);
+            });
+          });
+        }
+        for (auto& t: threads) {
+          if (t.joinable()) {
+            t.join();
+          }
+        }
+        //#end::threads[]
     }
 }
