@@ -140,7 +140,7 @@ main(int argc, const char* argv[])
 {
     // #tag::config_trace[]
     // Set logging level to Trace
-    couchbase::transactions::set_transactions_logging_level(log_levels::TRACE);
+    couchbase::transactions::set_transactions_logging_level(log_level::TRACE);
     // #end::config_trace[]
 
     // #tag::init[]
@@ -209,21 +209,21 @@ main(int argc, const char* argv[])
                 // Use ctx.get_optional() if the document may or may not exist
                 auto doc_opt = ctx.get_optional(collection, "doc-a");
                 if (doc_opt) {
-                    couchbase::transactions::transaction_document& doc = doc_opt.value();
+                    couchbase::transactions::transaction_get_result& doc = doc_opt.value();
                 }
 
                 // Use ctx.get if the document should exist, and the transaction
                 // will fail if it does not
-                couchbase::transactions::transaction_document doc_a = ctx.get(collection, "doc-a");
+                couchbase::transactions::transaction_get_result doc_a = ctx.get(collection, "doc-a");
 
                 // Replacing a doc:
-                couchbase::transactions::transaction_document doc_b = ctx.get(collection, "doc-b");
+                couchbase::transactions::transaction_get_result doc_b = ctx.get(collection, "doc-b");
                 nlohmann::json content = doc_b.content<nlohmann::json>();
                 content["transactions"] = "are awesome";
                 ctx.replace(collection, doc_b, content);
 
                 // Removing a doc:
-                couchbase::transactions::transaction_document doc_c = ctx.get(collection, "doc-c");
+                couchbase::transactions::transaction_get_result doc_c = ctx.get(collection, "doc-c");
                 ctx.remove(collection, doc_c);
 
                 ctx.commit();
@@ -252,7 +252,7 @@ main(int argc, const char* argv[])
             std::string id = "doc-a";
             auto doc_opt = ctx.get_optional(collection, id);
             if (doc_opt) {
-                couchbase::transactions::transaction_document& doc = doc_opt.value();
+                couchbase::transactions::transaction_get_result& doc = doc_opt.value();
             }
         });
         // #end::get[]
@@ -267,7 +267,7 @@ main(int argc, const char* argv[])
             };
             ctx.insert(collection, id, value);
             // document must be accessible
-            couchbase::transactions::transaction_document doc = ctx.get(collection, id);
+            couchbase::transactions::transaction_get_result doc = ctx.get(collection, id);
         });
         // #end::getReadOwnWrites[]
     }
@@ -276,7 +276,7 @@ main(int argc, const char* argv[])
         // tag::replace[]
         transactions.run([&](couchbase::transactions::attempt_context& ctx) {
             std::string id = "doc-a";
-            couchbase::transactions::transaction_document doc = ctx.get(collection, id);
+            couchbase::transactions::transaction_get_result doc = ctx.get(collection, id);
             nlohmann::json content = doc.content<nlohmann::json>();
             content["transactions"] = "are awesome";
             ctx.replace(collection, doc, content);
@@ -300,7 +300,7 @@ main(int argc, const char* argv[])
         int cost_of_item = 10;
         // #tag::rollback[]
         transactions.run([&](couchbase::transactions::attempt_context& ctx) {
-            couchbase::transactions::transaction_document customer = ctx.get(collection, "customer-name");
+            couchbase::transactions::transaction_get_result customer = ctx.get(collection, "customer-name");
 
             auto content = customer.content<nlohmann::json>();
             int balance = content["balance"].get<int>();
