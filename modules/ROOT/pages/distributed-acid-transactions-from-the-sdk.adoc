@@ -15,10 +15,10 @@ The {cpp} Transactions API is built upon the Couchbase C SDK, _libcouchbase_ (LC
 Applications built using C SDK and C Transactions can run in parallel without interfering with each other.
 
 Below we show you how to create Transactions, step-by-step.
-You may also want to start with our https://github.com/couchbaselabs/couchbase-transactions-java-examples[transactions examples repository],
+You may also want to start with our https://github.com/couchbaselabs/couchbase-transactions-cxx-examples[transactions examples repository],
 which features useful downloadable examples of using Distributed Transactions.
 
-API docs are available https://docs.couchbase.com/sdk-api/couchbase-transactions-cxx-1.0.0-beta.1/index.html[online].
+API docs are available https://docs.couchbase.com/sdk-api/couchbase-transactions-cxx-1.0.0/index.html[online].
 
 
 == Requirements
@@ -31,9 +31,18 @@ include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=requirements]
 
 Couchbase transactions require no additional components or services to be configured.
 Simply add the transactions library into your project.
-The latest version, as of October 2020, is 1.0.0.beta.1.
+The latest version, as of 19 April 2021, is 1.0.0.
 
-The following steps show how to build and run our example project on CentOS 8:
+=== Installing on Linux
+
+We are currently distributing our linux libraries in tar files, which can be found:
+
+* RHEL7/Centos7 - `https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-1.253.el7.x86_64.tar`
+* RHEL8/Centos8 - `https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-1.253.el8.x86_64.tar`
+* Debian10 - `https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0~r253-debian10-buster.tar`
+* Ubuntu 20.04 - `https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0~r253-ubuntu2004-focal.tar`
+
+The following steps show how to install transactions on RHEL/CentOS 8.  Other linux platforms will be similar:
 
 [source,console]
 ----
@@ -43,10 +52,23 @@ $ sudo yum install boost-devel
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
-$ tar xf couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
+$ wget https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-1.253.el8.x86_64.tar
+$ tar xf couchbase-transactions-1.0.0-1.253.el8.x86_64.tar
 $ sudo yum install couchbase-transactions*.rpm
 ----
+
+=== Installing on Mac OS X
+
+Mac libraries are available through https://brew.sh[homebrew].  To install, once you have homebrew:
+
+[source,console]
+----
+$ brew install couchbase-transactions-cxx
+----
+
+=== Build and run example project
+
+On Linux or Mac OSX, building and running the example project is the same:
 
 [source,console]
 ----
@@ -55,11 +77,6 @@ $ cd couchbase-transactions-cxx-examples/game/
 $ mkdir build && cd build
 $ cmake ../
 $ make
-----
-
-[source,console]
-----
-$ ./game_server
 ----
 
 == Initializing Transactions
@@ -191,7 +208,7 @@ include::example$transactions-example.cxx[tag=threads,indent=0]
 // == A Full Transaction Example
 include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=example]
 
-A complete version of this example is available on our https://github.com/couchbaselabs/couchbase-transactions-java-examples[GitHub transactions examples page].
+A complete version of this example is available on our https://github.com/couchbaselabs/couchbase-transactions-cxx-examples[GitHub transactions examples page].
 
 [source,c++]
 ----

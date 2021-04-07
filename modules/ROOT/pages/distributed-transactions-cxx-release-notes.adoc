@@ -23,9 +23,9 @@ This page features the release notes for that library -- for release notes, down
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
+$ wget https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-1.253.el8.x86_64.tar
 
-$ tar xf couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar
+$ tar xf couchbase-transactions-1.0.0-1.253.el8.x86_64.tar
 
 $ sudo yum install couchbase-transactions*.rpm
 ----
@@ -34,9 +34,9 @@ $ sudo yum install couchbase-transactions*.rpm
 
 [source,console]
 ----
-$ wget https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar
+$ wget https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0~r253-debian10-buster.tar
 
-$ tar xf couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar
+$ tar xf couchbase-transactions-1.0.0~r253-debian10-buster.tar
 
 $ sudo apt-get install -y libevent-core-2.1
 
@@ -45,6 +45,15 @@ $ sudo dpkg -i couchbase-transactions*.deb
 
 // 1.0.0 release notes here:
 [#latest-release]
+== Version 1.0.0 (19 April 2021)
+
+* Supports couchbase server 6.6.1 and later.
+* Transactions for KV operations only (no query transactions yet)
+* Synchronous kv transaction operations (no async transaction operations yet)
+* Minimal c++ client included.
+
+=== Known issues
+
 == Version 1.0.0 Beta 1 (13 October 2020)
 
 First beta release of 1.0.0
@@ -52,9 +61,8 @@ First beta release of 1.0.0
 
 === Known Issues
 
-* Owing to https://issues.couchbase.com/browse/MB-41944[MB-41944], this release _should not be used together with a deployment using Sync Gateway_.  
-Owing to this issue there is also a known theoretical data loss problem.  
-This release (as with all beta releases) should not be used in production.  
+* Owing to https://issues.couchbase.com/browse/MB-41944[MB-41944], this release _should not be used together with a deployment using Sync Gateway_.
+Owing to this issue there is also a known theoretical data loss problem.
 The issue will be fixed in Couchbase Server release 6.6.1.
 
 
@@ -64,10 +72,10 @@ The issue will be fixed in Couchbase Server release 6.6.1.
 [cols="12,^8,23"]
 |===
 | Platform              | Architecture | File
-| Enterprise Linux 7    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el7.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.63.el7.x86_64.tar]
-| Enterprise Linux 8    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar]
-| Ubuntu 20.04 (focal)  | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er63-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r63-ubuntu2004-focal.tar]
-| Debian 10 (buster)    | x64          | https://sdk-snapshots.couchbase.com/clients/transactions-cxx/couchbase-transactions-1.0.0.beta.1%7Er63-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar]
+| Enterprise Linux 7    | x64          | https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-cxx-1.0.0-1.253.el7.x86_64.tar[couchbase-transactions-1.0.0-0.beta.1.63.el7.x86_64.tar]
+| Enterprise Linux 8    | x64          | https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-cxx-1.0.0-1.253.el8.x86_64.tarcouchbase-transactions-1.0.0-0.beta.1.63.el8.x86_64.tar]
+| Ubuntu 20.04 (focal)  | x64          | https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-cxx-1.0.0~r253-debian10-buster.tar[couchbase-transactions-1.0.0.beta.1~r63-ubuntu2004-focal.tar]
+| Debian 10 (buster)    | x64          | https://packages.couchbase.com/clients/transactions-cxx/couchbase-transactions-cxx-1.0.0~r253-ubuntu2004-focal.tar[couchbase-transactions-1.0.0.beta.1~r63-debian10-buster.tar]
 |===
 
 
@@ -75,5 +83,3 @@ The issue will be fixed in Couchbase Server release 6.6.1.
 
 See the xref:6.6@server:learn:data/transactions.adoc[Distributed ACID Transactions concept doc] in the server documentation for details of how Couchbase implements transactions.
 The xref:distributed-acid-transactions-from-the-sdk.adoc[Distributed Transactions HOWTO doc] walks you through all aspects of working with Distributed Transactions.
-
-
