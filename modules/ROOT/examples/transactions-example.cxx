@@ -140,7 +140,7 @@ main(int argc, const char* argv[])
 {
     // #tag::config_trace[]
     // Set logging level to Trace
-    couchbase::transactions::set_transactions_logging_level(log_levels::TRACE);
+    couchbase::transactions::set_transactions_logging_level(log_level::TRACE);
     // #end::config_trace[]
 
     // #tag::init[]
