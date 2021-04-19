@@ -1,6 +1,5 @@
 name: cxx-txns
 version: '1.0'
-prerelease: Beta
 title: C++ Transactions
 start_page: distributed-acid-transactions-from-the-sdk.adoc
 nav:
