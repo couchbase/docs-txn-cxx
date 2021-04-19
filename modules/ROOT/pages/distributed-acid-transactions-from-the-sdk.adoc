@@ -58,10 +58,12 @@ $ sudo yum install couchbase-transactions*.rpm
 
 === Installing on Mac OS X
 
-Mac libraries are available through https://brew.sh[homebrew].  To install, once you have homebrew:
+Mac libraries are available through https://brew.sh[homebrew].  Once you have homebrew,
+add our tap, and install:
 
 [source,console]
 ----
+$ brew tap couchbaselabs/homebrew-couchbase-transactions-cxx
 $ brew install couchbase-transactions-cxx
 ----
 
