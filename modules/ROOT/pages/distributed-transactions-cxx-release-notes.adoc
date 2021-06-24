@@ -4,7 +4,7 @@
 :page-aliases: transactions-release-notes
 
 [abstract]
-The Couchbase {cpp} Distributed ACID Transactions API is built upon lobcouchbase, which is included automatically.
+The Couchbase {cpp} Distributed ACID Transactions API is built upon libcouchbase, which is included automatically.
 This page contains installation instructions and release notes.
 
 
