@@ -22,7 +22,7 @@ API docs are available https://docs.couchbase.com/sdk-api/couchbase-transactions
 
 == Requirements
 
-* Couchbase Server 6.6 or above.
+* Couchbase Server 6.6.1 or above.
 include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=requirements]
 
 
