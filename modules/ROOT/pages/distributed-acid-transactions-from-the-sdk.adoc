@@ -2,10 +2,12 @@
 :navtitle: ACID Transactions
 :page-topic-type: howto
 :page-aliases: acid-transactions
+:page-toclevels: 2
 
+include::partial$acid-transactions-attributes.adoc[]
 
 [abstract]
-A practical guide to using Couchbase’s distributed ACID transactions, via the C++ API.
+A practical guide to using Couchbase's distributed ACID transactions, via the C++ API.
 
 
 include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=intro]
@@ -110,10 +112,10 @@ include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=creating]
 include::example$transactions-example.cxx[tag=create,indent=0]
 ----
 
+include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=lambda-ctx]
 
-== Examples
-
-A code example is worth a thousand words, so here is a quick summary of the main transaction operations.
+// Examples
+include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=examples-intro]
 
 [source,c++]
 ----
@@ -121,10 +123,10 @@ include::example$transactions-example.cxx[tag=examples,indent=0]
 ----
 
 
-include::6.5@sdk:shared:partial$acid-transactions.adoc[tag=mechanics]
+include::7.0@sdk:shared:partial$acid-transactions.adoc[tags=mechanics;!integrated-sdk-cleanup-process]
 
 
-== Mutating Documents
+== Key-Value Mutations
 
 === Replacing
 
@@ -154,7 +156,7 @@ include::example$transactions-example.cxx[tag=insert,indent=0]
 ----
 
 
-== Getting Documents
+== Key-Value Reads
 
 There are two ways to get a document, `get` and `getOptional`:
 
@@ -255,6 +257,8 @@ After a transaction is rolled back, it cannot be committed, no further operation
 //  Error Handling
 include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=error]
 
+There are three exceptions that Couchbase transactions can return to the application: `transaction_failed`, `transaction_expired` and `transaction_commit_ambiguous`.
+All exceptions derive from `transaction_exception` for backwards-compatibility purposes.
 
 
 //  txnfailed
@@ -267,6 +271,8 @@ include::example$transactions-example.cxx[tag=config-expiration,indent=0]
 
 include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=txnfailed1]
 
+// Asynchronous Cleanup
+include::7.0@sdk:shared:partial$acid-transactions.adoc[tags=cleanup;!integrated-sdk-cleanup-collections]
 
 == Logging
 
@@ -280,5 +286,5 @@ include::example$transactions-example.cxx[tag=config_trace,indent=0]
 
 == Further Reading
 
-* There’s plenty of explanation about how Transactions work in Couchbase in our xref:7.0@server:learn:data/transactions.adoc[Transactions documentation].
+* There's plenty of explanation about how Transactions work in Couchbase in our xref:7.0@server:learn:data/transactions.adoc[Transactions documentation].
 * You can find further code examples on our https://github.com/couchbaselabs/couchbase-transactions-cxx-examples[transactions examples repository].
