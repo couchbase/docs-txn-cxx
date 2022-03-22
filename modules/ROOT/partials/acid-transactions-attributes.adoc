@@ -1,0 +1,21 @@
+// These attributes are used in sdk::shared:partial$acid-transactions.adoc 
+
+// intro
+:durability-exception: pass:q[`LCB_ERR_DURABILITY_IMPOSSIBLE`]
+
+
+:lambda-attempt-ctx: pass:q[a `attempt_context`]
+:collection-insert: pass:q[`collection.insert()`]
+:ctx-insert: pass:q[`ctx.insert()`]
+
+// error
+:ctx-get: pass:q[`ctx.get()`]
+:error-unstaging-complete: pass:q[`transaction_result.unstaging_complete` attribute]
+
+
+// txnfailed
+:transaction-failed: transaction_failed
+:transaction-expired: transaction_expired
+:transaction-config: transaction_config
+:transaction-commit-ambiguous: transaction_commit_ambiguous
+:txnfailed-unstaging-complete: transaction_result.unstaging_complete
