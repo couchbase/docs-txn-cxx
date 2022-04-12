@@ -175,6 +175,10 @@ Gets will 'read your own writes', e.g. this will succeed:
 include::example$transactions-example.cxx[tag=getReadOwnWrites,indent=0]
 ----
 
+// Add this once N1QL txns are released for this platform:
+// include::{version-server}@sdk:shared:partial$acid-transactions.adoc[tag=n1ql-rbac]
+
+
 == Committing
 
 Committing is automatic: if there is no explicit call to `ctx.commit()` at the end of the transaction logic callback, and no exception is thrown, it will be committed.
