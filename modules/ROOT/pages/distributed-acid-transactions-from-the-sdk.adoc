@@ -9,6 +9,8 @@ include::partial$acid-transactions-attributes.adoc[]
 [abstract]
 A practical guide to using Couchbase's distributed ACID transactions, via the C++ API.
 
+IMPORTANT: This {cpp} API for multi-document ACID transactions is built on top of our C SDK, lbcouchbase.
+For a full {cpp}  implementation of the transactions API _and_ SDK see the https://github.com/couchbaselabs/couchbase-cxx-client/[DEveloper Preview of the Couchbase {cpp} SDK].
 
 include::7.0@sdk:shared:partial$acid-transactions.adoc[tag=intro]
 
